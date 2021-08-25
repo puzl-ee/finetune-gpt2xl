@@ -17,6 +17,7 @@ deepspeed --num_gpus=1 run_clm.py \
   --deepspeed ds_config_gptneo.json \
   --model_name_or_path EleutherAI/gpt-neo-2.7B \
   --train_file train.csv \
+  --validation_file validation.csv \
   --do_train \
   --do_eval \
   --fp16 \
