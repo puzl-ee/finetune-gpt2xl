@@ -22,7 +22,8 @@ deepspeed --num_gpus=1 run_clm.py \
   --fp16 \
   --overwrite_cache \
   --evaluation_strategy="steps" \
-  --overwrite_output_dir ${MODEL_OUTPUT_DIR} \
+  --output_dir ${MODEL_OUTPUT_DIR} \
+  --overwrite_output_dir true \
   --num_train_epochs 1 \
   --eval_steps 15 \
   --gradient_accumulation_steps 8 \
