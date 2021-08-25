@@ -1,6 +1,15 @@
-export VOLUME_DIR="/media/gpt-neo-experiment"
+export VOLUME_NAME="gpt-neo-experiment"
+export VOLUME_DIR="/media/${VOLUME_NAME}"
 export TRANSFORMERS_CACHE="${VOLUME_DIR}/model_cache"
 export MODEL_OUTPUT_DIR="${VOLUME_DIR}/finetuned_model"
+export PYTHON_VERSION="$(python -V | sed -nr 's/.* ([0-9]\.[0-9]).*/\1/p')"
+export PATH="$PATH:/home/ubuntu/.local/bin"
+export WANDB_DISABLED="true"
+
+set -e
+
+sudo apt-get update && \
+  sudo apt-get install -y python${PYTHON_VERSION}-dev
 
 pip3 install --user -r requirements.txt
 
@@ -8,7 +17,6 @@ deepspeed --num_gpus=1 run_clm.py \
   --deepspeed ds_config_gptneo.json \
   --model_name_or_path EleutherAI/gpt-neo-2.7B \
   --train_file train.csv \
-  --validation_file validation.csv \
   --do_train \
   --do_eval \
   --fp16 \
